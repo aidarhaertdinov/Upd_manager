@@ -15,7 +15,6 @@ bootstrap = Bootstrap()
 migrate = Migrate()
 login_manager = LoginManager()
 
-
 def create_app(config_name="development"):
 
     app = Flask(__name__)
@@ -29,5 +28,8 @@ def create_app(config_name="development"):
 
     from .main import main
     app.register_blueprint(main)
+
+    from.auth import auth
+    app.register_blueprint(auth)
 
     return app

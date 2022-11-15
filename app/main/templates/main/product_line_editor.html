@@ -2,12 +2,31 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
-<div class="conteiner">
+<div class="container col-6 ">
     {% for msg in get_flashed_messages() %}
         <div class = "flash "> {{ msg }} </div>
     {% endfor %}
-    <div class="container-sm">
-        {{ wtf.quick_form(form) }}
-    </div>
+<!--    {{ wtf.quick_form(form) }}-->
+    {{ wtf.form_field(form.product_name, placeholder='Светильник ДПО 5030') }}
+    {{ wtf.form_field( form.unit_of_measurement)}}
+<!--    <form>-->
+<!--    <div class="form-group">-->
+<!--        <label for="exampleFormControlSelect1">Единица измерения</label>-->
+<!--        <select class="form-control" id="exampleFormControlSelect1">-->
+<!--            <option>шт</option>-->
+<!--            <option>м</option>-->
+<!--            <option>т</option>-->
+<!--            <option>кг</option>-->
+<!--            <option>упак</option>-->
+<!--            <option>компле</option>-->
+<!--            <option>м2</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    </form>-->
+    {{ wtf.form_field(form.quantity, placeholder='150') }}
+    {{ wtf.form_field(form.price, placeholder='2010.50') }}
+    {{ wtf.form_field(form.tax_rate, placeholder='20') }}
+    {{ wtf.form_field(form.submit) }}
 </div>
+
 {% endblock %}

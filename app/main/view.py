@@ -24,7 +24,7 @@ def upload():
                                        unit_of_measurement=product_line.unit_of_measurement,
                                        quantity=product_line.quantity, price=product_line.price,
                                        cost_without_tax=product_line.cost_without_tax,
-                                       tax_rate=product_line.tax_rate, tax_amount=product_line.tax_amount,
+                                       tax_rate=product_line.tax_rate[:-1], tax_amount=product_line.tax_amount,
                                        cost_with_tax=product_line.cost_with_tax))
         db.session.commit()
         os.remove(os.path.join('app/static/files', f.filename))
@@ -52,10 +52,10 @@ def product_line_editor(id_product_line):
             product_line.unit_of_measurement = form.unit_of_measurement.data
             product_line.quantity = form.quantity.data
             product_line.price = form.price.data
-            product_line.cost_without_tax = form.cost_without_tax.data
-            product_line.tax_rate = form.tax_rate.data
-            product_line.tax_amount = form.tax_amount.data
-            product_line.cost_with_tax = form.cost_with_tax.data
+            product_line.cost_without_tax = product_line.quantity * product_line.price
+            product_line.tax_rate = (100 + form.tax_rate.data) / 100
+            product_line.tax_amount = (product_line.cost_without_tax * product_line.tax_rate) - product_line.cost_without_tax
+            product_line.cost_with_tax = product_line.cost_without_tax + product_line.tax_amount
             db.session.add(product_line)
             db.session.commit()
             return redirect(url_for("main.product_line_browser"))
@@ -76,7 +76,7 @@ def product_line_empty_editor():
         return redirect(url_for("main.product_line_browser"))
     return render_template("main/product_line_editor.html", form=form)
 
-
+# метод делит метод, * Id продукт лайна передавать не в поисковой строке а в теле запроса
 @main.route('/delete_product_line/<id_product_line>', methods=['GET', 'POST'])
 def delete_product_line(id_product_line):
     product_line = ProductLine.query.filter_by(id_product_line=id_product_line).first()

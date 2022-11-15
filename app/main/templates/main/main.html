@@ -5,7 +5,8 @@
 {{ dropzone.load_css() }}
 {{ dropzone.load_js() }}
 {{ dropzone.create(action=url_for('main.upload')) }}
-{{ dropzone.config(max_files=10, timeout=10000, default_message='<img src="static/excel_filetype_icon.png"><br>Перетащите EXCEL файл сюда<br>или<br><button type="button" class="btn btn-secondary">ВЫБЕРИТЕ ФАЙЛ</button>') }}
+{{ dropzone.config(max_files=10, timeout=10000, default_message='<img src="static/excel_filetype_icon.png">
+<br>Перетащите EXCEL файл сюда<br>или<br><button type="button" class="btn btn-secondary">ВЫБЕРИТЕ ФАЙЛ</button>') }}
 <div class="send_button">
     <a class="btn btn-success btn-lg" href='{{ url_for("main.product_line_browser") }}'>Отправить</a>
 </div>

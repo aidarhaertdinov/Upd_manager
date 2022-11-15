@@ -3,10 +3,13 @@ h1 {
     text-align: center;
     color: gray;
 }
+.navbar {
+    background-color: #e3f2fd;
+    margin-bottom: 2%;
+}
 
 .btn-group {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 2%;
 }
 
 .table {
@@ -58,4 +61,17 @@ h1 {
 
 .product_line_icons {
     width: 25px;
+}
+.nav-item {
+    display:flex;
+}
+.navbar-brand {
+    padding-top: 0;
+}
+.form-group {
+    margin-bottom: 0.5em;
+}
+.form-control {
+    height: 3em;
+    font-size: 0.8rem;
 }

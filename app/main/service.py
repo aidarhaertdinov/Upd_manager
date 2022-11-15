@@ -18,17 +18,6 @@ def parsing_upd(excel_path: str) -> list[ProductLine]:
     return product_lines
 
 
-# def add_data_in_db(excel_path):
-#     product_lines = parsing_upd(excel_path)
-#     for product_line in product_lines:
-#         db.session.add(ProductLine(product_name=product_line.product_name,
-#                                    unit_of_measurement=product_line.unit_of_measurement,
-#                                    quantity=product_line.quantity, price=product_line.price,
-#                                    cost_without_tax=product_line.cost_without_tax,
-#                                    tax_rate=product_line.tax_rate, tax_amount=product_line.tax_amount,
-#                                    cost_with_tax=product_line.cost_with_tax))
-#         db.session.commit()
-
 
 
 
