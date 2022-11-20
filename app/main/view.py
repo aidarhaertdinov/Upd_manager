@@ -5,7 +5,7 @@ from flask_wtf.csrf import CSRFError
 from app.model import ProductLine, db
 from .form import ProductLineForm
 import os
-from .service import parsing_upd
+from .service import parsing_upd, calculation_cost_without_tax, calculation_tax_amount, calculation_cost_with_tax
 
 
 @login_manager.user_loader
@@ -41,7 +41,6 @@ def product_line_browser():
     product_lines = ProductLine.query.all()
     return render_template("main/product_line_browser.html", product_lines=product_lines, title="Экран №2")
 
-
 @main.route('/product_line_editor/<id_product_line>', methods=['GET', 'POST'])
 def product_line_editor(id_product_line):
     product_line = ProductLine.query.filter_by(id_product_line=id_product_line).first()
@@ -52,10 +51,11 @@ def product_line_editor(id_product_line):
             product_line.unit_of_measurement = form.unit_of_measurement.data
             product_line.quantity = form.quantity.data
             product_line.price = form.price.data
-            product_line.cost_without_tax = product_line.quantity * product_line.price
-            product_line.tax_rate = (100 + form.tax_rate.data) / 100
-            product_line.tax_amount = (product_line.cost_without_tax * product_line.tax_rate) - product_line.cost_without_tax
-            product_line.cost_with_tax = product_line.cost_without_tax + product_line.tax_amount
+            product_line.cost_without_tax = calculation_cost_without_tax(product_line.quantity, product_line.price)
+            product_line.tax_rate = form.tax_rate.data
+            product_line.tax_amount = calculation_tax_amount(product_line.cost_without_tax, product_line.tax_rate)
+            product_line.cost_with_tax = calculation_cost_with_tax(product_line.cost_without_tax,
+                                                                   product_line.tax_amount)
             db.session.add(product_line)
             db.session.commit()
             return redirect(url_for("main.product_line_browser"))
@@ -68,15 +68,20 @@ def product_line_editor(id_product_line):
 def product_line_empty_editor():
     form = ProductLineForm()
     if form.validate_on_submit():
-        product_line = ProductLine(form.product_name.data, form.unit_of_measurement.data, form.quantity.data,
-                                   form.price.data, form.cost_without_tax.data, form.tax_rate.data,
-                                   form.tax_amount.data, form.cost_with_tax.data)
+        product_line = ProductLine(product_name=form.product_name.data,
+                                   unit_of_measurement=form.unit_of_measurement.data,
+                                   quantity=form.quantity.data,
+                                   price=form.price.data,
+                                   cost_without_tax=calculation_cost_without_tax(form.quantity.data, form.price.data),
+                                   tax_rate=form.tax_rate.data,
+                                   tax_amount=calculation_tax_amount(calculation_cost_without_tax
+                                                             (form.quantity.data, form.price.data), form.tax_rate.data),
+                                   cost_with_tax=calculation_cost_with_tax(calculation_cost_without_tax(form.quantity.data, form.price.data),calculation_tax_amount(calculation_cost_without_tax(form.quantity.data, form.price.data),form.tax_rate.data)))
         db.session.add(product_line)
         db.session.commit()
         return redirect(url_for("main.product_line_browser"))
     return render_template("main/product_line_editor.html", form=form)
 
-# метод делит метод, * Id продукт лайна передавать не в поисковой строке а в теле запроса
 @main.route('/delete_product_line/<id_product_line>', methods=['GET', 'POST'])
 def delete_product_line(id_product_line):
     product_line = ProductLine.query.filter_by(id_product_line=id_product_line).first()

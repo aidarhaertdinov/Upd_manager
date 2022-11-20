@@ -6,6 +6,7 @@ from ..model import Users, db
 
 from .. import login_manager
 from flask_login import login_user, logout_user, login_required, current_user
+from app.mail.email import send_email
 
 
 @login_manager.user_loader
@@ -22,7 +23,7 @@ def login():
             login_user(user, remember=True)
             return redirect(url_for("auth.success"))
         else:
-            flash("You entered incorrect email or password")
+            flash("Вы ввели неверный адрес электронной почты или пароль")
     return render_template("auth/authorization.html", form=form, title="login")
 
 
@@ -34,6 +35,7 @@ def registration():
         db.session.add(user)
         db.session.commit()
         login_user(user, remember=True)
+        send_email()
         return redirect(url_for("auth.success"))
     return render_template("auth/authorization.html", form=form, title="registration")
 

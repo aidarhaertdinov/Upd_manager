@@ -2,6 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 <div class="container">
 	<div class="btn-group" role="group">
 		<a class="btn btn-outline-info" href='{{ url_for("main.product_line_empty_editor") }}'>Create product line</a>

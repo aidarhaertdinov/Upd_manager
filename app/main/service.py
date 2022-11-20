@@ -18,7 +18,15 @@ def parsing_upd(excel_path: str) -> list[ProductLine]:
     return product_lines
 
 
+def calculation_cost_without_tax(quantity: float, price: float) -> float:
+    return round((quantity * price), 2)
 
 
+def calculation_tax_amount(cost_without_tax: float, tax_rate: float) -> float:
+    return round(((cost_without_tax * (100 + tax_rate)/100) - cost_without_tax), 2)
+
+
+def calculation_cost_with_tax(cost_without_tax: float, tax_amount: float) -> float:
+    return round((cost_without_tax + tax_amount), 2)
 
 
