@@ -3,9 +3,6 @@
 
 {% block content %}
 <div class="container">
-    {% for msg in get_flashed_messages() %}
-        <div class = "flash "> {{ msg }} </div>
-    {% endfor %}
     <div class="row justify-content-md-left">
         <div class="col-md-6">
         {{ wtf.quick_form(form) }}

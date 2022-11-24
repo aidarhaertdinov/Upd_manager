@@ -1,18 +1,22 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from enum import Enum
 from app import db
 
-
-class Users(db.Model, UserMixin):
+class Permissions(Enum):
+    MODERATE = "MODERATE"
+    ADMIN = "ADMIN"
+    USER = "USER"
+class User(db.Model, UserMixin):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_name = db.Column(db.String(70), unique=True)
     password = db.Column(db.Text)
-
-    def __init__(self, name, password):
+    permission = db.Column(db.Enum(Permissions))
+    def __init__(self, name, password, permission=Permissions.USER):
         self.user_name = name
         self.hash_password(password)
+        self.permission = permission
 
     def __repr__(self):
         return '<User %r>' % self.id
@@ -22,6 +26,9 @@ class Users(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    def can(self, perm):
+        return self.permission is not None and self.permission == perm
 
 
 class Order(db.Model):

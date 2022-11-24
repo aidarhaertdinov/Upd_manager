@@ -11,7 +11,7 @@ class Dimension(Enum):
 
 class ProductLineForm(FlaskForm):
     product_name = StringField("Наименование товара: ", validators=[DataRequired()])
-    unit_of_measurement = SelectField("Единица измерения: ", choices= [e.value for e in Dimension])
+    unit_of_measurement = SelectField("Единица измерения: ", choices=[e.value for e in Dimension])
     quantity = FloatField("Количество: ", validators=[DataRequired()])
     price = FloatField("Цена: ", validators=[DataRequired()])
     tax_rate = FloatField("Налоговая ставка %: ", validators=[DataRequired()])
