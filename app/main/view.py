@@ -16,7 +16,7 @@ def load_user(user_id):
 
 @main.route('/uploads', methods=['GET', 'POST'])
 @login_required
-@user_required
+
 def upload():
     if request.method == 'POST':
         f = request.files.get('file')
@@ -40,6 +40,7 @@ def index():
 
 
 @main.route('/product_line_browser')
+@login_required
 def product_line_browser():
     product_lines = ProductLine.query.all()
     return render_template("main/product_line_browser.html", product_lines=product_lines, title="Экран №2")
@@ -47,7 +48,7 @@ def product_line_browser():
 
 @main.route('/product_line_editor/<id_product_line>', methods=['GET', 'POST'])
 @login_required
-@admin_required
+
 def product_line_editor(id_product_line):
     product_line = ProductLine.query.filter_by(id_product_line=id_product_line).first()
     if product_line:
@@ -71,11 +72,13 @@ def product_line_editor(id_product_line):
 
 
 @main.route('/product_line_editor', methods=['GET', 'POST'])
+@login_required
 def product_line_empty_editor():
     form = ProductLineForm()
     if form.validate_on_submit():
         cost_without_tax = calculation_cost_without_tax(form.quantity.data, form.price.data)
         tax_amount = calculation_tax_amount(cost_without_tax, form.tax_rate.data)
+        cost_with_tax = calculation_cost_with_tax(cost_without_tax, tax_amount)
         product_line = ProductLine(product_name=form.product_name.data,
                                    unit_of_measurement=form.unit_of_measurement.data,
                                    quantity=form.quantity.data,
@@ -83,13 +86,14 @@ def product_line_empty_editor():
                                    cost_without_tax=cost_without_tax,
                                    tax_rate=form.tax_rate.data,
                                    tax_amount=tax_amount,
-                                   cost_with_tax=calculation_cost_with_tax(calculation_cost_without_tax(form.quantity.data, form.price.data),calculation_tax_amount(calculation_cost_without_tax(form.quantity.data, form.price.data),form.tax_rate.data)))
+                                   cost_with_tax=cost_with_tax)
         db.session.add(product_line)
         db.session.commit()
         return redirect(url_for("main.product_line_browser"))
     return render_template("main/product_line_editor.html", form=form)
 
 @main.route('/delete_product_line/<id_product_line>', methods=['GET', 'POST'])
+@login_required
 def delete_product_line(id_product_line):
     product_line = ProductLine.query.filter_by(id_product_line=id_product_line).first()
     db.session.delete(product_line)
@@ -97,7 +101,9 @@ def delete_product_line(id_product_line):
     return redirect(url_for("main.product_line_browser"))
 
 
-
+@main.errorhandler(404)
+def pageNotFount(error):
+    return render_template("main/page404.html", title="Страница не найдена")
 
 
 

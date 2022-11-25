@@ -6,6 +6,7 @@ from .. import login_manager
 from flask_login import login_user, logout_user, login_required
 from app.email import send_email
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -49,4 +50,5 @@ def logout():
 @login_required
 def success():
     return render_template("auth/log_in.html", title="log in")
+
 
