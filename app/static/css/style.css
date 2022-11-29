@@ -78,3 +78,13 @@ h1 {
 .product_line_editor {
     width: 55%
 }
+.flash {padding: 2px;}
+.flash.error {
+         border: 1px solid #FF4343;
+         background: #FF9C9C;
+         width: max-content;
+}
+.flash.success {
+         border: 1px solid #21DB56;
+         background: #AEFFC5;
+}

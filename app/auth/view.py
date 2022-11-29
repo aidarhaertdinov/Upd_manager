@@ -21,7 +21,7 @@ def login():
             login_user(user, remember=True)
             return redirect(url_for("auth.success"))
         else:
-            flash("Вы ввели неверный адрес электронной почты или пароль")
+            flash("Вы ввели неверный адрес электронной почты или пароль", category='error')
     return render_template("auth/authorization.html", form=form, title="login")
 
 
@@ -35,6 +35,8 @@ def registration():
         login_user(user, remember=True)
         send_email(user.user_name)
         return redirect(url_for("auth.success"))
+    else:
+        flash("Неверная пара логин/пароль", category='error')
     return render_template("auth/authorization.html", form=form, title="registration")
 
 
@@ -42,7 +44,7 @@ def registration():
 @login_required
 def logout():
     logout_user()
-    flash('You have been logged out.')
+    flash('Вы вышли из системы', category='error')
     return redirect(url_for("auth.login"))
 
 
