@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+<div class="container">
+	<table class="table table-hover table-sm text-center" border="1">
+		<thead class="thead-dark">
+    		<tr>
+				<th scope="col">№</th>
+				<th scope="col">Имя пользователя</th>
+			    <th scope="col">Пароль</th>
+			    <th scope="col">Разрешение</th>
+				<th scope="col">Редактировать</th>
+				<th scope="col">Удалить</th>
+    		</tr>
+  		</thead>
+	{% for user in users %}
+	<tr>
+		<td> {{ user.id }} </td>
+		<td class="product_name_column"> {{ user.user_name }} </td>
+		<td> {{ user.password }} </td>
+		<td> {{ user.permission.value }} </td>
+		<td>
+			<a href='{{ url_for("main.user_editor", id = user.id) }}'>
+				<img class="product_line_icons" src="{{url_for('static', filename='edit_icon.png')}}">
+			</a>
+		</td>
+		<td>
+			<a href='{{ url_for("main.delete_user", id = user.id) }}'>
+				<img class="product_line_icons" src="{{url_for('static', filename='garbage_icon.png')}}">
+			</a>
+		</td>
+	</tr>
+	{% endfor %}
+	</table>
+</div>
+{% endblock %}

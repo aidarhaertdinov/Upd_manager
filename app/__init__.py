@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from config import config
 from flask_mail import Mail
+from flask_apscheduler import APScheduler
 
 
 dropzone = Dropzone()
@@ -16,6 +17,7 @@ bootstrap = Bootstrap()
 migrate = Migrate()
 login_manager = LoginManager()
 mail = Mail()
+scheduler = APScheduler()
 
 def create_app(config_name="development"):
 
@@ -28,6 +30,9 @@ def create_app(config_name="development"):
     migrate.init_app(app, db)
     login_manager.init_app(app)
     mail.init_app(app)
+    scheduler.init_app(app)
+    from . import tasks
+    scheduler.start(paused=True)
 
     from .main import main
     app.register_blueprint(main)
@@ -36,3 +41,4 @@ def create_app(config_name="development"):
     app.register_blueprint(auth)
 
     return app
+

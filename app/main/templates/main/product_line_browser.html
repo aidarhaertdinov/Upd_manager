@@ -1,6 +1,22 @@
 {% extends "main/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% macro row(product_line) -%}
+<tr class="table">
+    <td>{{product_line.product_name}}</td>
+    <td>{{product_line.unit_of_measurement}}</td>
+	<td>{{product_line.quantity}}</td>
+	<td>{{product_line.price}}</td>
+	<td>{{product_line.cost_without_tax}}</td>
+	<td>{{product_line.tax_rate}}</td>
+	<td>{{product_line.tax_amount}}</td>
+	<td>{{product_line.cost_with_tax}}</td>
+	<td><a href='{{ url_for("main.product_line_editor", id_product_line = product_line.id_product_line) }}'><img class="product_line_icons" src="{{url_for('static', filename='edit_icon.png')}}"></a></td>
+	<td><a href='{{ url_for("main.delete_product_line", id_product_line = product_line.id_product_line) }}'><img class="product_line_icons" src="{{url_for('static', filename='garbage_icon.png')}}"></a></td>
+</tr>
+{%- endmacro %}
+
+
 {% block content %}
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 <div class="container">
@@ -25,28 +41,17 @@
 				<th scope="col">Удалить</th>
     		</tr>
   		</thead>
-	{% for product_line in product_lines %}
-	<tr>
-		<td class="product_name_column"> {{ product_line.product_name }} </td>
-		<td> {{ product_line.unit_of_measurement }} </td>
-		<td> {{ product_line.quantity }} </td>
-		<td> {{ product_line.price }} </td>
-		<td> {{ product_line.cost_without_tax }} </td>
-		<td> {{ product_line.tax_rate }} </td>
-		<td> {{ product_line.tax_amount}} </td>
-		<td> {{ product_line.cost_with_tax }} </td>
-		<td>
-			<a href='{{ url_for("main.product_line_editor", id_product_line = product_line.id_product_line) }}'>
-				<img class="product_line_icons" src="{{url_for('static', filename='edit_icon.png')}}">
-			</a>
-		</td>
-		<td>
-			<a href='{{ url_for("main.delete_product_line", id_product_line = product_line.id_product_line) }}'>
-				<img class="product_line_icons" src="{{url_for('static', filename='garbage_icon.png')}}">
-			</a>
-		</td>
-	</tr>
-	{% endfor %}
+		<tbody>
+			{% for product_line in product_lines.items %}
+			{{ row(product_line)}}
+			{% endfor %}
+		</tbody>
 	</table>
+	{% for page_num in product_lines.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+	{% if page_num %} {% if product_lines.page == page_num %}
+	<a class="btn btn-info mb-4" href="{{ url_for('main.product_line_browser', page=page_num) }}">{{ page_num }}</a>
+	{% else %}
+	<a class="btn btn-outline-info mb-4" href="{{ url_for('main.product_line_browser', page=page_num) }}">{{ page_num }}</a>
+	{% endif %} {% else %} ... {% endif %} {% endfor %}
 </div>
 {% endblock %}

@@ -16,7 +16,6 @@ def load_user(user_id):
 
 @main.route('/uploads', methods=['GET', 'POST'])
 @login_required
-
 def upload():
     if request.method == 'POST':
         f = request.files.get('file')
@@ -45,10 +44,11 @@ def index():
 #     product_lines = ProductLine.query.all()
 #     return render_template("main/product_line_browser.html", product_lines=product_lines, title="Экран №2")
 @main.route("/product_line_browser", methods=['GET', 'POST'])
+@login_required
 def product_line_browser():
     page = request.args.get('page', 1, type=int)
     product_lines = ProductLine.query.paginate(page=page, per_page=7)
-    return render_template("main/product_line_browser1.html", product_lines=product_lines, title="Экран №2")
+    return render_template("main/product_line_browser.html", product_lines=product_lines, title="Экран №2")
 
 
 @main.route('/product_line_editor/<id_product_line>', methods=['GET', 'POST'])

@@ -16,6 +16,7 @@ class Config:
     MAIL_USERNAME = 'senderupd@yandex.ru'
     MAIL_PASSWORD = 'flask135mail79'
     MAIL_DEFAULT_SENDER = 'senderupd@yandex.ru'
+    SCHEDULER_API_ENABLED = True
 
 class DevelopmentConfig(Config):
     DEBUG = True

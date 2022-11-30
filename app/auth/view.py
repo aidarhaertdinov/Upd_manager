@@ -1,4 +1,4 @@
-from flask import flash, url_for, redirect, render_template
+from flask import flash, url_for, redirect, render_template, request
 from . import auth
 from .form import LoginForm, RegistrationForm
 from ..model import User, db
@@ -35,7 +35,7 @@ def registration():
         login_user(user, remember=True)
         send_email(user.user_name)
         return redirect(url_for("auth.success"))
-    else:
+    elif request.method == 'POST':
         flash("Неверная пара логин/пароль", category='error')
     return render_template("auth/authorization.html", form=form, title="registration")
 
@@ -44,7 +44,7 @@ def registration():
 @login_required
 def logout():
     logout_user()
-    flash('Вы вышли из системы', category='error')
+    flash('Вы вышли из системы', category='success')
     return redirect(url_for("auth.login"))
 
 

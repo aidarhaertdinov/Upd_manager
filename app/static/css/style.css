@@ -87,4 +87,5 @@ h1 {
 .flash.success {
          border: 1px solid #21DB56;
          background: #AEFFC5;
+         width: max-content;
 }
