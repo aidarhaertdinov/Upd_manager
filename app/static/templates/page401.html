@@ -1,0 +1,8 @@
+{% extends "main/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+Серверу не удалось подтвердить, что вы авторизованы для доступа к запрошенной стрнице.
+Пожалуйста <a href='{{ url_for("main.product_line_browser") }}'>авторизуйтесь</a>
+{% endblock %}

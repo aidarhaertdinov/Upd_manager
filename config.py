@@ -17,6 +17,7 @@ class Config:
     MAIL_PASSWORD = 'flask135mail79'
     MAIL_DEFAULT_SENDER = 'senderupd@yandex.ru'
     SCHEDULER_API_ENABLED = True
+    FLASK_ADMIN_SWATCH = 'cerulean'
 
 class DevelopmentConfig(Config):
     DEBUG = True

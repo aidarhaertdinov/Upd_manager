@@ -8,6 +8,11 @@ from flask_wtf.csrf import CSRFProtect
 from config import config
 from flask_mail import Mail
 from flask_apscheduler import APScheduler
+from flask_errors_handler import ErrorHandler
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_admin.menu import MenuLink
+
 
 
 dropzone = Dropzone()
@@ -18,6 +23,8 @@ migrate = Migrate()
 login_manager = LoginManager()
 mail = Mail()
 scheduler = APScheduler()
+error = ErrorHandler()
+
 
 def create_app(config_name="development"):
 
@@ -39,6 +46,15 @@ def create_app(config_name="development"):
 
     from.auth import auth
     app.register_blueprint(auth)
+
+    error.init_app(app)
+
+    from .model import User
+    from .admin.user_view import UserView
+    admin = Admin(app, name='UPD Manager', template_mode='bootstrap4', endpoint='/admin')
+    admin.add_view(UserView(User, db.session))
+    from .main.view import url_for
+    admin.add_link(MenuLink(name='Home Page', url='/', category='Links'))
 
     return app
 
