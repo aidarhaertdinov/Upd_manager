@@ -2,7 +2,7 @@ from flask_admin.contrib.sqla import ModelView
 
 
 class UserView(ModelView):
-    column_exclude_list = ['password', ]
+    column_exclude_list = ['password']
     column_labels = {
         "id": "ID",
         "user_name": "Имя пользователя",
@@ -14,3 +14,8 @@ class UserView(ModelView):
     column_editable_list = ["user_name",'permission']
     create_modal = True
     edit_modal = True
+    form_widget_args = {
+        'password': {
+            'disabled': True
+        }
+    }

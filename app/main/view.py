@@ -29,7 +29,7 @@ def upload():
                                        tax_rate=product_line.tax_rate[:-1], tax_amount=product_line.tax_amount,
                                        cost_with_tax=product_line.cost_with_tax))
         db.session.commit()
-        os.remove(os.path.join('app/static/files', f.filename))
+        # os.remove(os.path.join('app/static/files', f.filename))
     return render_template("main/main.html", title="Main")
 
 

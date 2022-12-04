@@ -1,7 +1,5 @@
-from . import create_app
+from .main import app
 
-app = create_app()
-
-@app.error(401)
+@app.errorhandler(401)
 def unauthorized(error):
     return render_template('page401.html', title="Страница не доступна")
