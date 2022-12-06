@@ -1,0 +1,10 @@
+{% extends "main/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<div class="container">
+    Серверу не удалось подтвердить, что вы авторизованы. Для доступа к запрошенной странице пожалуйста
+    <a href='{{ url_for("auth.login") }}'>авторизуйтесь</a>
+</div>
+
+{% endblock %}

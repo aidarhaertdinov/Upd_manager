@@ -1,8 +1,6 @@
 from flask_admin.contrib.fileadmin import FileAdmin
 
 
-
-
 class FileAdminView(FileAdmin):
     column_exclude_list = ['name', 'size', 'date']
     column_labels = {

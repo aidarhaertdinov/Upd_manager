@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_dropzone import Dropzone
 from flask_login import LoginManager
@@ -9,11 +9,9 @@ from config import config
 from flask_mail import Mail
 from flask_apscheduler import APScheduler
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
 from flask_admin.menu import MenuLink
 from flask_babelex import Babel
 import os.path as op
-from flask_admin.contrib.fileadmin import FileAdmin
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
@@ -37,7 +35,9 @@ def create_app(config_name="development"):
     login_manager.init_app(app)
     mail.init_app(app)
     scheduler.init_app(app)
-    from . import tasks
+    babel.init_app(app)
+
+    from app.main import tasks
     scheduler.start(paused=True)
 
     from .main import main
@@ -46,21 +46,21 @@ def create_app(config_name="development"):
     from .auth import auth
     app.register_blueprint(auth)
 
-    babel.init_app(app)
+    from .error import error
+    app.register_blueprint(error)
+
+
 
     from .model import User
     from .admin.user_view import UserView
     admin = Admin(app, name='UPD Manager', template_mode='bootstrap4', endpoint='/admin')
-    admin.add_view(UserView(User, db.session))
+    admin.add_view(UserView(User, db.session, name="Пользователи"))
 
-    admin.add_link(MenuLink(name='Home Page', url='/', category='Links'))
+
+    admin.add_link(MenuLink(name='Домашняя страница', url='/'))
 
     from .admin.file_admin_view import FileAdminView
-    admin.add_view(FileAdminView(base_path=op.join(op.dirname(__file__), 'static/files'), name='File manager'))
-
-    # @app.errorhandler(401)
-    # def unauthorized(error):
-    #     return render_template('page401.html', title="Страница не доступна")
+    admin.add_view(FileAdminView(base_path=op.join(op.dirname(__file__), 'static/files'), name='Файловый менеджер'))
 
 
     return app

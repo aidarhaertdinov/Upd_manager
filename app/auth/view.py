@@ -5,7 +5,6 @@ from ..model import User, db
 from .. import login_manager
 from flask_login import login_user, logout_user, login_required
 from app.email import send_email
-from .. import ModelView
 
 
 @login_manager.user_loader
