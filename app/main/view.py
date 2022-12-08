@@ -39,11 +39,6 @@ def index():
     return render_template("main/base.html")
 
 
-# @main.route('/product_line_browser')
-# @login_required
-# def product_line_browser():
-#     product_lines = ProductLine.query.all()
-#     return render_template("main/product_line_browser.html", product_lines=product_lines, title="Экран №2")
 @main.route("/product_line_browser", methods=['GET', 'POST'])
 @login_required
 def product_line_browser():
@@ -54,7 +49,6 @@ def product_line_browser():
 
 @main.route('/product_line_editor/<id_product_line>', methods=['GET', 'POST'])
 @login_required
-
 def product_line_editor(id_product_line):
     product_line = ProductLine.query.filter_by(id_product_line=id_product_line).first()
     if product_line:
@@ -98,6 +92,7 @@ def product_line_empty_editor():
         return redirect(url_for("main.product_line_browser"))
     return render_template("main/product_line_editor.html", form=form)
 
+
 @main.route('/delete_product_line/<id_product_line>', methods=['GET', 'POST'])
 @login_required
 def delete_product_line(id_product_line):
@@ -117,7 +112,6 @@ def user_browser():
 
 @main.route('/user_editor/<id>', methods=['GET', 'POST'])
 @login_required
-@admin_required
 def user_editor(id):
     user = User.query.filter_by(id=id).first()
     if user:
@@ -134,7 +128,6 @@ def user_editor(id):
 
 @main.route('/delete_user/<id>', methods=['GET', 'POST'])
 @login_required
-@admin_required
 def delete_user(id):
     user = User.query.filter_by(id=id).first()
     db.session.delete(user)

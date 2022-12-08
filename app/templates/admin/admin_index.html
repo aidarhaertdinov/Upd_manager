@@ -1,0 +1,11 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div class="container">
+  {% for category, msg in get_flashed_messages(True) %}
+  <div class = "flash {{ category }}"> {{ msg }} </div>
+  {% endfor %}
+  <h1>Добро пожаловать в UPD Manager!</h1>
+</div>
+
+{% endblock %}

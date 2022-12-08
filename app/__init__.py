@@ -53,10 +53,10 @@ def create_app(config_name="development"):
 
     from .model import User
     from .admin.user_view import UserView
-    admin = Admin(app, name='UPD Manager', template_mode='bootstrap4', endpoint='/admin')
+    from .admin.admin_view import AdminMainView
+    admin = Admin(app, name='UPD Manager', index_view=AdminMainView(), template_mode='bootstrap4')
+
     admin.add_view(UserView(User, db.session, name="Пользователи"))
-
-
     admin.add_link(MenuLink(name='Домашняя страница', url='/'))
 
     from .admin.file_admin_view import FileAdminView
