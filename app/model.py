@@ -30,6 +30,15 @@ class User(db.Model, UserMixin):
     def can(self, perm):
         return self.permission is not None and self.permission == perm
 
+    def to_json(self):
+        return {'id': self.id,
+                'user_name': self.user_name,
+                'permission': self.permission.value}
+    @staticmethod
+    def from_json(_dict: dict):
+        return User(name=_dict.get('user_name'),
+                    password=_dict.get('password'),
+                    permission=Permissions.__getitem__(_dict.get('permission')))
 
 class Order(db.Model):
     __table_args__ = {'extend_existing': True}

@@ -3,7 +3,7 @@ import os
 
 class Config:
     WTF_CSRF_SECRET_KEY = os.urandom(32)
-    CSRF_ENABLE = True
+    CSRF_ENABLE = False
     SECRET_KEY = os.urandom(32)
     DROPZONE_ENABLE_CSRF = True
     DROPZONE_ALLOWED_FILE_CUSTOM = True
@@ -19,6 +19,8 @@ class Config:
     SCHEDULER_API_ENABLED = True
     FLASK_ADMIN_SWATCH = 'lumen'
     BABEL_DEFAULT_LOCALE = 'ru'
+
+    SESSION_COOKIE_DOMAIN = False
 
 
 class DevelopmentConfig(Config):

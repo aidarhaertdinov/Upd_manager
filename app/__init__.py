@@ -12,6 +12,7 @@ from flask_admin import Admin
 from flask_admin.menu import MenuLink
 from flask_babelex import Babel
 import os.path as op
+from flask_restful import Api
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
@@ -22,7 +23,7 @@ login_manager = LoginManager()
 mail = Mail()
 scheduler = APScheduler()
 babel = Babel()
-
+api = Api()
 
 def create_app(config_name="development"):
     app = Flask(__name__)
@@ -36,6 +37,7 @@ def create_app(config_name="development"):
     mail.init_app(app)
     scheduler.init_app(app)
     babel.init_app(app)
+    api.init_app(app)
 
     from app.main import tasks
     scheduler.start(paused=True)
@@ -46,9 +48,12 @@ def create_app(config_name="development"):
     from .auth import auth
     app.register_blueprint(auth)
 
-    from .error import error
-    app.register_blueprint(error)
+    # from .error import error
+    # app.register_blueprint(error)
 
+    from app.rest import rest_v1
+    csrf.exempt(rest_v1)
+    app.register_blueprint(rest_v1)
 
 
     from .model import User
@@ -62,6 +67,9 @@ def create_app(config_name="development"):
     from .admin.file_admin_view import FileAdminView
     admin.add_view(FileAdminView(base_path=op.join(op.dirname(__file__), 'static/files'), name='Файловый менеджер'))
 
+
+    # from .rest.view1 import RestMain
+    # api.add_resource(RestMain, "/api/users/<int:id>")
 
     return app
 
