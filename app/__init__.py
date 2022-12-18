@@ -13,6 +13,7 @@ from flask_admin.menu import MenuLink
 from flask_babelex import Babel
 import os.path as op
 from flask_restful import Api
+from flasgger import Swagger
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
@@ -24,6 +25,7 @@ mail = Mail()
 scheduler = APScheduler()
 babel = Babel()
 api = Api()
+swagger = Swagger()
 
 def create_app(config_name="development"):
     app = Flask(__name__)
@@ -38,6 +40,7 @@ def create_app(config_name="development"):
     scheduler.init_app(app)
     babel.init_app(app)
     api.init_app(app)
+    swagger.init_app(app)
 
     from app.main import tasks
     scheduler.start(paused=True)
@@ -51,10 +54,13 @@ def create_app(config_name="development"):
     # from .error import error
     # app.register_blueprint(error)
 
-    from app.rest import rest_v1
-    csrf.exempt(rest_v1)
-    app.register_blueprint(rest_v1)
+    # from app.rest import rest_v1
+    # csrf.exempt(rest_v1)
+    # app.register_blueprint(rest_v1)
 
+    from .rest.v2.view_2 import RestUser, RestUserList
+    api.add_resource(RestUser, "rest/v2/users/<int:id>", endpoint="rest/v2/users/<int:id>")
+    api.add_resource(RestUserList, "rest/v2/users", endpoint="rest/v2/users")
 
     from .model import User
     from .admin.user_view import UserView
@@ -68,8 +74,6 @@ def create_app(config_name="development"):
     admin.add_view(FileAdminView(base_path=op.join(op.dirname(__file__), 'static/files'), name='Файловый менеджер'))
 
 
-    # from .rest.view1 import RestMain
-    # api.add_resource(RestMain, "/api/users/<int:id>")
 
     return app
 

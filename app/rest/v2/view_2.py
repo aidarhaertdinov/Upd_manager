@@ -1,14 +1,48 @@
 from flask_restful import Resource, reqparse
-from app.model import User
+from app.model import User, db, Permissions
 
+parser = reqparse.RequestParser()  # получает данные
+parser.add_argument('user_name', type=str, required=True)  # добавить аргументы
+parser.add_argument('password', type=str, required=True)
+parser.add_argument('permission', type=str, required=True)
 
-class RestMain(Resource):
+class RestUserList(Resource):
+    def get(self):
+        users = User.query.all()
+        list_users = [user.to_json() for user in users]
+
+        return list_users
+
+class RestUser(Resource):
+
     def get(self, id):
         user = User.query.filter_by(id=id).first()
         if user:
-            return user.json()
+            return user.to_json()
         else:
             return {'сообщение': 'пользователя не существует'}, 404
+
+    def post(self):
+        # data = request.get_json()
+        data = RestUser.parser.parse_args()
+        user = User.from_json(data)
+        # user = User(data['user_name'], data['password'], data['permission'])
+        session.add(user)
+        session.commit()
+        return user.to_json(), 201
+
+    def put(self, id):
+        # data = request.get_json()
+        data = RestUser.parser.parse_args()
+        user = User.query.filter_by(id=id).first()
+        user.user_name = data.get('user_name') or user.user_name
+        user.password = data.get('password') or user.password
+        if data.get('permission'):
+            user.permission = Permissions.__getitem__(data.get('permission'))
+        session.add(user)
+        session.commit()
+        return user.to_json(), 201
+
 
     def delete(self, id):
         user = User.query.filter_by(id=id).first()
@@ -20,26 +54,4 @@ class RestMain(Resource):
             return {'сообщение': 'пользователя не существует'}, 404
 
 
-    def post(self, id):
-        data = request.get_json()
-        user = User(data['user_name'], data['password'], data['permission'])
-        session.add(user)
-        session.commit()
-        return user.json(), 201
 
-        # parser = reqparse.RequestParser() # получает данные
-        # parser.add_argument('user_name', type=str) # добавить аргументы
-        # parser.add_argument('password', type=str)
-        # parser.add_argument('permission', type=str)
-        # data = RestMain.parser.parse_args()
-
-    def put(self, id):
-        data = request.get_json()
-        user = User.query.filter_by(id=id).first()
-        if user:
-            user.user_name = data['user_name']
-            user.password = data['password']
-            user.permission = data['permission']
-        session.add(user)
-        session.commit()
-        return user.json(), 201
