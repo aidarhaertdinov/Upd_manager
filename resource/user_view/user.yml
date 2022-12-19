@@ -1,13 +1,13 @@
 ---
 parameters:
-  - name: palette
+  - name: users
     in: path
     type: string
-    enum: ['all', 'rgb', 'cmyk']
+    enum: ['MODERATE', 'ADMIN', 'USER']
     required: true
     default: all
 definitions:
-  Palette:
+  Users:
     type: object
     properties:
       palette_name:

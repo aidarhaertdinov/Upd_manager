@@ -19,6 +19,7 @@ def get_users():
 
 
 @rest_v1.route("/users/<int:id>", methods=['GET'])
+
 def get_user(id):
     try:
         user = User.query.filter_by(id=id).first()
