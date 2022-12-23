@@ -12,7 +12,8 @@ from flask_admin import Admin
 from flask_admin.menu import MenuLink
 from flask_babelex import Babel
 import os.path as op
-from flask_restful import Api
+from flask_restful_swagger_3 import Api
+# from flask_restful import Api
 from flasgger import Swagger
 
 dropzone = Dropzone()
@@ -39,7 +40,8 @@ def create_app(config_name="development"):
     mail.init_app(app)
     scheduler.init_app(app)
     babel.init_app(app)
-    api.init_app(app)
+    api = Api(app, decorators=[csrf.exempt])
+    # api.init_app(app)
     swagger.init_app(app)
 
     from app.main import tasks
@@ -54,13 +56,13 @@ def create_app(config_name="development"):
     # from .error import error
     # app.register_blueprint(error)
 
-    # from app.rest import rest_v1
-    # csrf.exempt(rest_v1)
-    # app.register_blueprint(rest_v1)
+    from app.rest import rest_v1
+    csrf.exempt(rest_v1)
+    app.register_blueprint(rest_v1)
 
-    from .rest.v2.view_2 import RestUser, RestUserList
-    api.add_resource(RestUser, "rest/v2/users/<int:id>", endpoint="rest/v2/users/<int:id>")
-    api.add_resource(RestUserList, "rest/v2/users", endpoint="rest/v2/users")
+    # from .rest.v2.view import RestUser, RestUserList
+    # api.add_resource(RestUser, "/rest/v2/users/<int:id>")
+    # api.add_resource(RestUserList, "/rest/v2/users")
 
     from .model import User
     from .admin.user_view import UserView

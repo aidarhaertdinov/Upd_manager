@@ -40,6 +40,7 @@ class User(db.Model, UserMixin):
                     password=_dict.get('password'),
                     permission=Permissions.__getitem__(_dict.get('permission')))
 
+
 class Order(db.Model):
     __table_args__ = {'extend_existing': True}
     id_order = db.Column(db.Integer, primary_key=True)

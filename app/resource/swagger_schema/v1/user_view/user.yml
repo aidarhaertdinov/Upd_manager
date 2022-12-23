@@ -1,0 +1,28 @@
+---
+parameters:
+  - name: id
+    in: path
+    type: integer
+    required: true
+    default: all
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      user_name:
+        type: string
+      permission:
+        type: string
+        enum: ['MODERATE', 'ADMIN', 'USER']
+responses:
+  200:
+    description:
+    schema:
+      $ref: '#/definitions/  User'
+    examples:
+      rgb: {"id": 14,
+            "user_name": "aidar123@mail.ru",
+            "permission": "MODERATE"
+      }

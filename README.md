@@ -1,57 +1,51 @@
-# 1.Как собрать и запустить проект
+# UPD Manager
 
-1. Создаем проект в PyCharm
-2. Копируем ```https://github.com/aidarhaertdinov/Upd_manager.git``` 
-2. Вставить в свой проект ```VCS -> Get from version control -> в поле URL -> clone``` 
-3. Создать виртуальное окружение ```python -m venv venv```, активировать ```venv\Scripts\activate```
-4. Из файла ```requirements.txt``` установить библиотеки
-
-# 2. Что делает проект
+## Что делает проект
 
 Проект помогает автоматизировать ручное заполнение информации из УПД (универсальный передаточный документ)
 
-# 3.Описание используемых Конфигураций (Config) и специфичных методов в проекте 
+## Как собрать и запустить проект
 
-## 3.1 Используемые Конфигураций (Config)
-__WTF_CSRF_SECRET_KEY = os.urandom(32)__ - для защиты веб-форм от атаки под названием Cross-Site Request Forgery 
+1. Git clone ```https://github.com/aidarhaertdinov/Upd_manager.git```
+2. Создать виртуальное окружение ```python -m venv venv```, активировать ```venv\Scripts\activate``` , команды актуальны для Windows
+3. ```pip freeze > requirements.txt```
+4. Установить миграцию ```pip install flask-migrate```, создать репозиторий миграции ```flask db init``` 
 
-__CSRF_ENABLE = True__ - активирует предотвращение поддельных межсайтовых запросов
+## Используемые Конфигураций (Config)
+```WTF_CSRF_SECRET_KEY = os.urandom(32)``` - для защиты веб-форм от атаки под названием Cross-Site Request Forgery 
 
-__SECRET_KEY = os.urandom(32)__ - используют значение секретного ключа в качестве криптографического ключа, полезного для генерации подписей или токенов.
+```CSRF_ENABLE = True``` - активирует предотвращение поддельных межсайтовых запросов
 
-__DROPZONE_ENABLE_CSRF = True__ - включит защиту от CSRF - атак
+```SECRET_KEY = os.urandom(32)``` - используют значение секретного ключа в качестве криптографического ключа, полезного для генерации подписей или токенов.
 
-__DROPZONE_ALLOWED_FILE_CUSTOM__ = True__ - если хотим самостоятель установить расширение файлов
+```DROPZONE_ENABLE_CSRF = True``` - включит защиту от CSRF - атак (документация https://flask-dropzone.readthedocs.io/en/latest/index.html)
 
-__DROPZONE_ALLOWED_FILE_TYPE = '.xls, .xlsx'__ - установка типов расширения 
+```DROPZONE_ALLOWED_FILE_CUSTOM__ = True``` - если хотим самостоятель установить расширение файлов
 
-__DROPZONE_MAX_FILE_SIZE = 10__ - максимально допустимый размер файла. единица измерения: МБ
+```DROPZONE_ALLOWED_FILE_TYPE = '.xls, .xlsx'``` - установка типов расширения 
 
-__SQLALCHEMY_TRACK_MODIFICATIONS = False__ - если установлен в True, то Flask-SQLAlchemy будет отслеживать изменения объектов и посылать сигналы.
+```DROPZONE_MAX_FILE_SIZE = 10``` - максимально допустимый размер файла. единица измерения: МБ
 
-__MAIL_SERVER = 'smtp.yandex.ru'__ - почтовый сервер
+```SQLALCHEMY_TRACK_MODIFICATIONS = False``` - если установлен в True, то Flask-SQLAlchemy будет отслеживать изменения объектов и посылать сигналы.
 
-__MAIL_PORT = 465__ - почтовый порт
+```MAIL_SERVER = 'smtp.yandex.ru'``` -uri smtp сервера, который отвечает за рассылку писем. [ссылка на документацию](https://flask-mail.readthedocs.io/en/latest/?badge=latest)
 
-__MAIL_USE_SSL = True__ -  использовать протокол шифрования с SSL
+```MAIL_PORT = 465``` - порт почтового сервера
 
-__MAIL_USERNAME = 'senderupd@yandex.ru'__ - имя пользователя отправителя
+```MAIL_USE_SSL = True``` -  использовать протокол шифрования с SSL, при отправке сообщений
 
-__MAIL_PASSWORD = 'flask135mail79'__ - пароль пользователя отправителя
+```MAIL_USERNAME = 'senderupd@yandex.ru'``` - имя клиента рассылки, с которого будет отправленно письмо
 
-__MAIL_DEFAULT_SENDER = 'senderupd@yandex.ru'__ - устанавливает отправителя
+```MAIL_PASSWORD = 'flask135mail79'``` - пароль, который необходим для авторизации 
 
-__SCHEDULER_API_ENABLED = True__ - включение встроенного API
+```MAIL_DEFAULT_SENDER = 'senderupd@yandex.ru'``` - устанавливает отправителя элетронных писем
 
-__FLASK_ADMIN_SWATCH = 'lumen'__ - задать тему для flask_admin
+```SCHEDULER_API_ENABLED = True``` - включение встроенного API (документация https://pypi.org/project/Flask-Scheduler/#description)
 
-__BABEL_DEFAULT_LOCALE = 'ru'__ - перевод приложения на русский
+```FLASK_ADMIN_SWATCH = 'lumen'``` - задать тему для flask_admin (документация https://flask-admin.readthedocs.io/en/latest/index.html)
 
-## 3.2 Описание работы методов (функций)
+```BABEL_DEFAULT_LOCALE = 'ru'``` - перевод приложения на русский (документация https://python-babel.github.io/flask-babel/)
 
-* Метод **parsing_upd** (**app/main/service.py**) - на вход принимает путь excele файла, парсит и возвращает список product_lines (в нашем случае товары)
-
-* Методы обработок ошибок сервера **page_not_found** - 404 и **unauthorized**- 401 (**app/main/service.py**) - возвращают пользователю более дружественную информацию с помощью написанных шаблонов
 
 
 

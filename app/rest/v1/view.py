@@ -5,21 +5,16 @@ from ..errors import errors
 from flasgger import swag_from
 
 
-
 @rest_v1.route("/users", methods=['GET'])
-@swag_from('user.yml')
+# @swag_from('app/resource/swagger_schema/v1/user_view/user.yml')
 def get_users():
-    """
-    file: user.yml
-    """
     users = User.query.all()
     list_users = [user.to_json() for user in users]
 
     return jsonify(list_users)
 
-
 @rest_v1.route("/users/<int:id>", methods=['GET'])
-
+@swag_from('app/resource/swagger_schema/v1/user_view/user.yml')
 def get_user(id):
     try:
         user = User.query.filter_by(id=id).first()
