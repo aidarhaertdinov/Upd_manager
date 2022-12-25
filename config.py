@@ -2,23 +2,23 @@ import os
 
 
 class Config:
-    WTF_CSRF_SECRET_KEY = os.urandom(32)
-    CSRF_ENABLE = False
-    SECRET_KEY = os.urandom(32)
+    WTF_CSRF_SECRET_KEY = os.getenv('WTF_CSRF_SECRET_KEY') or os.urandom(32)
+    CSRF_ENABLE = os.getenv('CSRF_ENABLE') or False
+    SECRET_KEY = os.getenv('SECRET_KEY') or os.urandom(32)
     DROPZONE_ENABLE_CSRF = bool(os.getenv('DROPZONE_ENABLE_CSRF')) or True
-    DROPZONE_ALLOWED_FILE_CUSTOM = True
-    DROPZONE_ALLOWED_FILE_TYPE = '.xls, .xlsx'
-    DROPZONE_MAX_FILE_SIZE = 10
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DROPZONE_ALLOWED_FILE_CUSTOM = os.getenv('DROPZONE_ALLOWED_FILE_CUSTOM') or True
+    DROPZONE_ALLOWED_FILE_TYPE = os.getenv('DROPZONE_ALLOWED_FILE_TYPE') or '.xls, .xlsx'
+    DROPZONE_MAX_FILE_SIZE = os.getenv('DROPZONE_MAX_FILE_SIZE') or 10
+    SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS') or False
     MAIL_SERVER = os.getenv('MAIL_SERVER') or 'smtp.yandex.ru'
-    MAIL_PORT = 465
-    MAIL_USE_SSL = True
-    MAIL_USERNAME = 'senderupd@yandex.ru'
-    MAIL_PASSWORD = 'flask135mail79'
-    MAIL_DEFAULT_SENDER = 'senderupd@yandex.ru'
-    SCHEDULER_API_ENABLED = True
-    FLASK_ADMIN_SWATCH = 'lumen'
-    BABEL_DEFAULT_LOCALE = 'ru'
+    MAIL_PORT = os.getenv('MAIL_PORT') or 465
+    MAIL_USE_SSL = os.getenv('MAIL_USE_SSL') or True
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME') or 'senderupd@yandex.ru'
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD') or 'flask135mail79'
+    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER') or 'senderupd@yandex.ru'
+    SCHEDULER_API_ENABLED = os.getenv('SCHEDULER_API_ENABLED') or True
+    FLASK_ADMIN_SWATCH = os.getenv('FLASK_ADMIN_SWATCH') or 'lumen'
+    BABEL_DEFAULT_LOCALE = os.getenv('BABEL_DEFAULT_LOCALE') or 'ru'
 
     SESSION_COOKIE_DOMAIN = False
 
