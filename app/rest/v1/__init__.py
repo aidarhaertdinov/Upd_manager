@@ -6,4 +6,4 @@ rest_v1 = Blueprint("rest_v1",
                     static_folder="static",
                     url_prefix='/rest/v1')
 
-from .v1 import view
+from . import view

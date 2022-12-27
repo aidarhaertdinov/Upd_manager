@@ -20,7 +20,6 @@ class Config:
     FLASK_ADMIN_SWATCH = os.getenv('FLASK_ADMIN_SWATCH') or 'lumen'
     BABEL_DEFAULT_LOCALE = os.getenv('BABEL_DEFAULT_LOCALE') or 'ru'
 
-    SESSION_COOKIE_DOMAIN = False
 
 
 class DevelopmentConfig(Config):

@@ -13,8 +13,8 @@ from flask_admin.menu import MenuLink
 from flask_babelex import Babel
 import os.path as op
 from flask_restful_swagger_3 import Api
-# from flask_restful import Api
 from flasgger import Swagger
+# from .admin.admin_view import AdminMainView
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
@@ -27,6 +27,7 @@ scheduler = APScheduler()
 babel = Babel()
 api = Api()
 swagger = Swagger()
+# admin = Admin(name='UPD Manager', template_mode='bootstrap4')
 
 def create_app(config_name="development"):
     app = Flask(__name__)
@@ -40,9 +41,11 @@ def create_app(config_name="development"):
     mail.init_app(app)
     scheduler.init_app(app)
     babel.init_app(app)
-    api = Api(app, decorators=[csrf.exempt])
+    api = Api(app, decorators=[csrf.exempt], swagger_prefix_url='/api_v2', swagger_url='swagger.json')
     # api.init_app(app)
     swagger.init_app(app)
+
+
 
     from app.main import tasks
     scheduler.start(paused=True)
@@ -56,13 +59,15 @@ def create_app(config_name="development"):
     # from .error import error
     # app.register_blueprint(error)
 
-    from app.rest import rest_v1
+    from app.rest.v1 import rest_v1
     csrf.exempt(rest_v1)
     app.register_blueprint(rest_v1)
 
     # from .rest.v2.view import RestUser, RestUserList
-    # api.add_resource(RestUser, "/rest/v2/users/<int:id>")
+    # api.add_resource(RestUser, "/rest/v2/users/<int:id>", methods=['GET', 'PUT', 'DELETE', 'POST', ])
     # api.add_resource(RestUserList, "/rest/v2/users")
+
+
 
     from .model import User
     from .admin.user_view import UserView
@@ -76,6 +81,17 @@ def create_app(config_name="development"):
     admin.add_view(FileAdminView(base_path=op.join(op.dirname(__file__), 'static/files'), name='Файловый менеджер'))
 
 
+    # from app.admin import admin_bp
+    # app.register_blueprint(admin_bp)
+    # # from app.admin import admin
+    # # admin= Admin(app)
+
+
+    # # admin.init_app(app)
+    # from .admin.admin_view import AdminMainView
+    # # from .admin import add_views
+    # # admin = Admin(app, name='UPD Manager', index_view=AdminMainView(), template_mode='bootstrap4')
+    # admin.init_app(app, index_view=AdminMainView())
 
     return app
 

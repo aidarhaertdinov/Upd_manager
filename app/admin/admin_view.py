@@ -5,6 +5,7 @@ from flask_login import current_user
 
 
 class AdminMainView(AdminIndexView):
+
     @expose('/')
     def admin_main_view(self):
         if current_user.permission == Permissions.ADMIN:
