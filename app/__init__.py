@@ -15,6 +15,9 @@ import os.path as op
 from flask_restful_swagger_3 import Api
 from flasgger import Swagger
 # from .admin.admin_view import AdminMainView
+from flask_moment import Moment
+
+
 
 dropzone = Dropzone()
 csrf = CSRFProtect()
@@ -28,6 +31,7 @@ babel = Babel()
 api = Api()
 swagger = Swagger()
 # admin = Admin(name='UPD Manager', template_mode='bootstrap4')
+moment = Moment()
 
 def create_app(config_name="development"):
     app = Flask(__name__)
@@ -44,11 +48,11 @@ def create_app(config_name="development"):
     api = Api(app, decorators=[csrf.exempt], swagger_prefix_url='/api_v2', swagger_url='swagger.json')
     # api.init_app(app)
     swagger.init_app(app)
-
+    moment.init_app(app)
 
 
     from app.main import tasks
-    scheduler.start(paused=True)
+    scheduler.start(paused=False)
 
     from .main import main
     app.register_blueprint(main)
@@ -59,13 +63,13 @@ def create_app(config_name="development"):
     # from .error import error
     # app.register_blueprint(error)
 
-    from app.rest.v1 import rest_v1
-    csrf.exempt(rest_v1)
-    app.register_blueprint(rest_v1)
+    # from app.rest.v1 import rest_v1
+    # csrf.exempt(rest_v1)
+    # app.register_blueprint(rest_v1)
 
-    # from .rest.v2.view import RestUser, RestUserList
-    # api.add_resource(RestUser, "/rest/v2/users/<int:id>", methods=['GET', 'PUT', 'DELETE', 'POST', ])
-    # api.add_resource(RestUserList, "/rest/v2/users")
+    from .rest.v2.view import RestUser, RestUserList
+    api.add_resource(RestUser, "/rest/v2/users/<int:id>", methods=['GET', 'PUT', 'DELETE', 'POST', ])
+    api.add_resource(RestUserList, "/rest/v2/users")
 
 
 
@@ -92,6 +96,8 @@ def create_app(config_name="development"):
     # # from .admin import add_views
     # # admin = Admin(app, name='UPD Manager', index_view=AdminMainView(), template_mode='bootstrap4')
     # admin.init_app(app, index_view=AdminMainView())
+
+
 
     return app
 

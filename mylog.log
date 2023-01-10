@@ -1,0 +1,90 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 931-169-755
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "job1" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:15 +05)" (scheduled at 2023-01-11 00:22:15.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:20 +05)" executed successfully
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "job1" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:25 +05)" (scheduled at 2023-01-11 00:22:20.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:25 +05)" executed successfully
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 931-169-755
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:25 +05)" (scheduled at 2023-01-11 00:22:25.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:30 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:30 +05)" (scheduled at 2023-01-11 00:22:25.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:30 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:35 +05)" (scheduled at 2023-01-11 00:22:30.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:35 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:35 +05)" (scheduled at 2023-01-11 00:22:30.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:35 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:40 +05)" (scheduled at 2023-01-11 00:22:35.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:40 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:40 +05)" (scheduled at 2023-01-11 00:22:35.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:40 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:45 +05)" (scheduled at 2023-01-11 00:22:40.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:45 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:45 +05)" (scheduled at 2023-01-11 00:22:40.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:45 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:50 +05)" (scheduled at 2023-01-11 00:22:45.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:50 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:50 +05)" (scheduled at 2023-01-11 00:22:45.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:50 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:55 +05)" (scheduled at 2023-01-11 00:22:50.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:55 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:55 +05)" (scheduled at 2023-01-11 00:22:50.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:22:55 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:00 +05)" (scheduled at 2023-01-11 00:22:55.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:00 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:00 +05)" (scheduled at 2023-01-11 00:22:55.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:00 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:05 +05)" (scheduled at 2023-01-11 00:23:00.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:05 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:05 +05)" (scheduled at 2023-01-11 00:23:00.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:05 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:10 +05)" (scheduled at 2023-01-11 00:23:05.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:10 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:10 +05)" (scheduled at 2023-01-11 00:23:05.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:10 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:15 +05)" (scheduled at 2023-01-11 00:23:10.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:15 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:15 +05)" (scheduled at 2023-01-11 00:23:10.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:15 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:20 +05)" (scheduled at 2023-01-11 00:23:15.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:20 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:20 +05)" (scheduled at 2023-01-11 00:23:15.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:20 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:25 +05)" (scheduled at 2023-01-11 00:23:20.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:25 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:25 +05)" (scheduled at 2023-01-11 00:23:20.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:25 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:30 +05)" (scheduled at 2023-01-11 00:23:25.208872+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:30 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:30 +05)" (scheduled at 2023-01-11 00:23:25.468050+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:05], next run at: 2023-01-11 00:23:30 +05)" executed successfully
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "job1" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+INFO:apscheduler.scheduler:Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO:apscheduler.scheduler:Added job "job1" to job store "default"
+INFO:apscheduler.scheduler:Scheduler started
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 931-169-755
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:12 +05)" (scheduled at 2023-01-11 00:26:12.593101+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:22 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:19 +05)" (scheduled at 2023-01-11 00:26:19.497627+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:29 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:32 +05)" (scheduled at 2023-01-11 00:26:22.593101+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:32 +05)" executed successfully
+INFO:apscheduler.executors.default:Running job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:39 +05)" (scheduled at 2023-01-11 00:26:29.497627+05:00)
+INFO:apscheduler.executors.default:Job "job1 (trigger: interval[0:00:10], next run at: 2023-01-11 00:26:39 +05)" executed successfully

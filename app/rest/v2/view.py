@@ -1,7 +1,7 @@
 from flask_restful_swagger_3 import swagger, Resource
 from flask_restful.reqparse import RequestParser
 from app.model import User, Permissions, db
-from app.resource.swagger_schema.v2.schema import UserModel
+from app.rest.v2.schema import UserModel
 from app import csrf
 from flask import request
 from ..errors import errors

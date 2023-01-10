@@ -1,7 +1,9 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from enum import Enum
-from app import db
+from app import db, moment
+from sqlalchemy import event
+from datetime import datetime
 
 class Permissions(Enum):
     MODERATE = "MODERATE"
@@ -13,6 +15,8 @@ class User(db.Model, UserMixin):
     user_name = db.Column(db.String(70), unique=True)
     password = db.Column(db.Text)
     permission = db.Column(db.Enum(Permissions))
+    created_date = db.Column(db.DateTime(timezone=True), nullable=False )
+
     def __init__(self, name, password, permission=Permissions.USER):
         self.user_name = name
         self.hash_password(password)
@@ -39,6 +43,12 @@ class User(db.Model, UserMixin):
         return User(name=_dict.get('user_name'),
                     password=_dict.get('password'),
                     permission=Permissions.__getitem__(_dict.get('permission')))
+
+
+@event.listens_for(User, "before_insert")
+def add_created_date(mapper, connection, target):
+    target.created_date = moment.create(datetime.utcnow()).calendar()
+
 
 
 class Order(db.Model):
