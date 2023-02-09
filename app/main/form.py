@@ -20,7 +20,7 @@ class ProductLineForm(FlaskForm):
 
 
 class UserForm(FlaskForm):
-    id = IntegerField("№", validators=[DataRequired()])
+    id = IntegerField("ID", validators=[DataRequired()], render_kw={'readonly': True})
     user_name = StringField("Имя пользователя: ", validators=[DataRequired()])
     permission = SelectField("Разрешение: ", choices=[e.value for e in Permissions])
     submit = SubmitField("Отправить")
