@@ -1,7 +1,11 @@
 import pandas as pd
-from app.model import ProductLine, db
+from app.model import ProductLine
+from .decorator import function_execution_time
 
 
+
+
+@function_execution_time
 def parsing_upd(excel_path: str) -> list[ProductLine]:
     excel = pd.read_excel(excel_path, sheet_name='Лист1')
     product_lines = []
@@ -14,7 +18,8 @@ def parsing_upd(excel_path: str) -> list[ProductLine]:
         tax_rate = value[5]
         tax_amount = value[6]
         cost_with_tax = value[7]
-        product_lines.append(ProductLine(product_name, unit_of_measurement, quantity, price, cost_without_tax, tax_rate, tax_amount, cost_with_tax))
+        product_lines.append(ProductLine(product_name, unit_of_measurement, quantity, price,
+                                         cost_without_tax, tax_rate, tax_amount, cost_with_tax))
     return product_lines
 
 
@@ -23,10 +28,8 @@ def calculation_cost_without_tax(quantity: float, price: float) -> float:
 
 
 def calculation_tax_amount(cost_without_tax: float, tax_rate: float) -> float:
-    return round(((cost_without_tax * (100 + tax_rate)/100) - cost_without_tax), 2)
+    return round(((cost_without_tax * (100 + tax_rate) / 100) - cost_without_tax), 2)
 
 
 def calculation_cost_with_tax(cost_without_tax: float, tax_amount: float) -> float:
     return round((cost_without_tax + tax_amount), 2)
-
-

@@ -52,7 +52,7 @@ def create_app(config_name="development"):
 
 
     from app.main import tasks
-    scheduler.start(paused=False)
+    scheduler.start(paused=True)
 
     from .main import main
     app.register_blueprint(main)
@@ -63,13 +63,13 @@ def create_app(config_name="development"):
     # from .error import error
     # app.register_blueprint(error)
 
-    # from app.rest.v1 import rest_v1
-    # csrf.exempt(rest_v1)
-    # app.register_blueprint(rest_v1)
+    from app.rest.v1 import rest_v1
+    csrf.exempt(rest_v1)
+    app.register_blueprint(rest_v1)
 
-    from .rest.v2.view import RestUser, RestUserList
-    api.add_resource(RestUser, "/rest/v2/users/<int:id>", methods=['GET', 'PUT', 'DELETE', 'POST', ])
-    api.add_resource(RestUserList, "/rest/v2/users")
+    # from .rest.v2.view import RestUser, RestUserList
+    # api.add_resource(RestUser, "/rest/v2/users/<int:id>", methods=['GET', 'PUT', 'DELETE', 'POST', ])
+    # api.add_resource(RestUserList, "/rest/v2/users")
 
 
 

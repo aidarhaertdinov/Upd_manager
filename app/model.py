@@ -15,8 +15,7 @@ class User(db.Model, UserMixin):
     user_name = db.Column(db.String(70), unique=True)
     password = db.Column(db.Text)
     permission = db.Column(db.Enum(Permissions))
-    created_date = db.Column(db.DateTime(timezone=True), nullable=False )
-
+    created_date = db.Column(db.DateTime(timezone=True), nullable=False)
     def __init__(self, name, password, permission=Permissions.USER):
         self.user_name = name
         self.hash_password(password)
@@ -47,8 +46,10 @@ class User(db.Model, UserMixin):
 
 @event.listens_for(User, "before_insert")
 def add_created_date(mapper, connection, target):
-    target.created_date = moment.create(datetime.utcnow()).calendar()
-
+    target.created_date = moment.create(datetime.utcnow()).timestamp
+@event.listens_for(User, "before_insert")
+def lowercase(mapper, connection, target):
+    target.user_name = target.user_name.lower()
 
 
 class Order(db.Model):
@@ -88,7 +89,3 @@ class ProductLine (db.Model):
         self.tax_rate = tax_rate
         self.tax_amount = tax_amount
         self.cost_with_tax = cost_with_tax
-
-    # def __repr__(self):
-    #     return f"{self.product_name}, {self.unit_of_measurement}, {self.quantity}, {self.price}, {self.cost_without_tax}," \
-    #            f" {self.tax_rate}, {self.tax_amount}, {self.cost_with_tax}"
